@@ -15,13 +15,13 @@ export const ChatList = () => (
 
 export const ChatShow = () => (
   <Show>
-      <SimpleShowLayout>
-          <TextField source="id" />
-          <TextField source="prompt" />
-          <TextField source="response" />
-          <TextField source="model" />
-          <NumberField source="tokens" />
-          <NumberField source="duration" />
-      </SimpleShowLayout>
+    <SimpleShowLayout>
+      <TextField source="id" />
+      <TextField source="prompt" />
+      <TextField source="response" />
+      <TextField source="model" />
+      <NumberField source="tokens" />
+      <NumberField source="duration" />
+    </SimpleShowLayout>
   </Show>
 );
