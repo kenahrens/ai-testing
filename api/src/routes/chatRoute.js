@@ -8,10 +8,18 @@ let chatData = [
   {
     'id': 1,
     'prompt': 'say hi',
-    'response': `Hello there! How's your day going? Is there anything in particular you'd like to talk about or ask about? I'm here to help answer questions or engage in friendly conversation. Let me know if you have any requests! :)`,
+    'response': `Hello! How's your day going? Is there anything specific you'd like to talk about or ask me a question about? I'm here to help answer any questions you might have to the best of my ability. Let me know if you need any assistance.`,
     'model': 'mistralai/Mistral-7B-Instruct-v0.2',
-    'tokens': 62,
-    'duration': 3335
+    'tokens': 67,
+    'duration': 3683
+  },
+  {
+    'id': 2,
+    'prompt': 'welcome a user to the app',
+    'response': `Hello and welcome to our app! I'm glad you've decided to join us. I'm here to help answer any questions you may have and guide you through the features of the app. Please feel free to explore and let me know if there's anything specific you'd like to know or if you have any feedback. Let's get started on a great experience together!`,
+    'model': 'mistralai/Mistral-7B-Instruct-v0.2',
+    'tokens': 96,
+    'duration': 5244
   }
 ];
 
