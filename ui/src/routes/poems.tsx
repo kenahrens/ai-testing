@@ -3,7 +3,6 @@ import { Create, Show, SimpleShowLayout, List, Datagrid, TextField, NumberField,
 export const PoemList = () => (
   <List>
     <Datagrid rowClick="show">
-      <TextField source="id" />
       <TextField source="poem" />
       <NumberField source="total_tokens" />
       <NumberField source="duration" />
