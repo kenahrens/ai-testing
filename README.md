@@ -9,7 +9,7 @@ There are several components in this application:
 * api - this has the code for the backend API, it is deployed in a container running node
 * tgi - this is based on Huggingface Text Generation Inference
 
-![alt text](image.png)
+![Architecture](diagram.png)
 
 ## Deploying
 
