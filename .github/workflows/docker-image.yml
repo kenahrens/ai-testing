@@ -37,6 +37,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: ./ui/.
+        platforms: linux/amd64,linux/arm64
         push: true
         tags: ghcr.io/kenahrens/ai-testing-ui:latest
         
@@ -44,5 +45,6 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: ./api/.
+        platforms: linux/amd64,linux/arm64
         push: true
         tags: ghcr.io/kenahrens/ai-testing-api:latest
