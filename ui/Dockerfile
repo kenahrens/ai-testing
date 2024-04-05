@@ -12,6 +12,8 @@ WORKDIR ${APP_HOME}
 
 COPY . .
 RUN npm install
+RUN npm run build
+RUN ls -al
 
 ################################################################################
 # RELEASE IMAGE
@@ -30,4 +32,4 @@ WORKDIR ${APP_HOME}
 # Copy built code
 # ------------------------------------------------------------------------------
 COPY nginx-default.conf /etc/nginx/conf.d/default.conf
-COPY --from=builder /app/build /usr/share/nginx/html
+COPY --from=builder /app/dist /usr/share/nginx/html
