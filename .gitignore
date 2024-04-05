@@ -1,5 +1,5 @@
 # sqlite
-data/database.sqlite
+api/data/database.sqlite
 
 # Logs
 logs
