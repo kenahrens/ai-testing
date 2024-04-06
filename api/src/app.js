@@ -18,8 +18,8 @@ import routePoems from './routes/poemRoute.js';
 
 // Use Routes
 app.use('/healthz', routeHealth);
-app.use('/chats', routeChats);
-app.use('/poems', routePoems);
+app.use('/api/chats', routeChats);
+app.use('/api/poems', routePoems);
 
 // Just to listen to /
 app.get('/', (req, res) => {
