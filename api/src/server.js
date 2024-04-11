@@ -1,3 +1,4 @@
+import 'global-agent/bootstrap';
 import 'dotenv/config';
 import app from './app.js'; // Note the '.js' extension
 import { initializeDb } from './db/database.js';
