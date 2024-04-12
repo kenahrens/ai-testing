@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-testing-api
+  labels:
+    app: ai-testing-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ai-testing-api
+  template:
+    metadata:
+      labels:
+        app: ai-testing-api
+    spec:
+      containers:
+        - name: ai-testing-api
+          image: ghcr.io/kenahrens/ai-testing-api:latest
+          imagePullPolicy: Always
+          env:
+            - name: TGI_API_URL
+              value: http://hf-tgi-server.default.svc.cluster.local/v1/chat/completions
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+              ephemeral-storage: 5Gi
+            limits:
+              cpu: 100m
+              memory: 100Mi
+              ephemeral-storage: 5Gi
+          ports:
+            - containerPort: 8080
+      tolerations:
+        - effect: NoSchedule
+          key: nvidia.com/gpu
+          operator: Equal
+          value: present
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ai-testing-api
+  labels:
+    app: ai-testing-api
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+  selector:
+    app: ai-testing-api

@@ -1,0 +1,43 @@
+# A secret name can be referenced instead of the api key itself.
+# The secret must be of the format:
+#
+# type: Opaque
+# data:
+#   SPEEDSCALE_API_KEY: <key>
+#   SPEEDSCALE_APP_URL: <appUrl>
+apiKeySecret: "spd-api"
+
+# The name of your cluster.
+clusterName: "autopilot"
+
+# Deploy a demo app at startup. Set this to an empty string to not deploy.
+# Valid values: ["java", ""]
+deployDemo: ""
+
+# control if the sidecar should enable/disable use of the smart dns lookup feature (requires NET_ADMIN)
+disableSidecarSmartReverseDNS: true
+
+# Operator settings. These limits are recommended unless you have a cluster
+# with a very large number of workloads (for eg. 10k+ deployments, replicasets, etc.).
+operator:
+  resources:
+    limits:
+      cpu: 100m
+      ephemeral-storage: 100Mi
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      ephemeral-storage: 100Mi
+      memory: 256Mi
+
+# Default sidecar settings
+sidecar:
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+      ephemeral-storage: 10Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+      ephemeral-storage: 10Mi

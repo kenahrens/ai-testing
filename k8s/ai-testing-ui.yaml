@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-testing-ui
+  labels:
+    app: ai-testing-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ai-testing-ui
+  template:
+    metadata:
+      labels:
+        app: ai-testing-ui
+    spec:
+      containers:
+        - name: ai-testing-ui
+          image: ghcr.io/kenahrens/ai-testing-ui:latest
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+              ephemeral-storage: 0Mi
+            limits:
+              cpu: 100m
+              memory: 100Mi
+              ephemeral-storage: 0Mi
+          ports:
+            - containerPort: 8080
+      tolerations:
+        - effect: NoSchedule
+          key: nvidia.com/gpu
+          operator: Equal
+          value: present
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ai-testing-ui
+  labels:
+    app: ai-testing-ui
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+  selector:
+    app: ai-testing-ui
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ai-testing-ui
+  annotations:
+    ingress.gcp.kubernetes.io/pre-shared-cert: "trafficreplay"
+spec:
+  tls:
+  rules:
+  - host: "ai-testing.trafficreplay.com"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: ai-testing-ui
+            port:
+              number: 80

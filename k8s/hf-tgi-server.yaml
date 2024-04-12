@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hf-tgi-server
+  labels:
+    app: hf-tgi-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hf-tgi-server
+  template:
+    metadata:
+      labels:
+        app: hf-tgi-server
+    spec:
+      containers:
+      - name: hf-tgi-server
+        image: ghcr.io/huggingface/text-generation-inference:1.4
+        resources:
+          requests:
+            cpu: "2"
+            memory: "7Gi"
+            ephemeral-storage: "100Gi"
+            nvidia.com/gpu: 1
+          limits:
+            cpu: "2"
+            memory: "7Gi"
+            ephemeral-storage: "100Gi"
+            nvidia.com/gpu: 1
+        args:
+        - --model-id=$(MODEL_ID)
+        env:
+        - name: MODEL_ID
+          value: mistralai/Mistral-7B-Instruct-v0.2
+        - name: HUGGING_FACE_HUB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: hf-secret
+              key: hf_api_token
+        ports:
+          - containerPort: 80
+      nodeSelector:
+        cloud.google.com/gke-accelerator: nvidia-l4
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hf-tgi-server
+  labels:
+    app: hf-tgi-server
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+  selector:
+    app: hf-tgi-server

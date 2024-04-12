@@ -1,0 +1,6 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-testing-api
+  annotations:
+    sidecar.speedscale.com/inject: "false"

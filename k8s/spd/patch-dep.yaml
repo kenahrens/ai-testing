@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-testing-api
+  annotations:
+    sidecar.speedscale.com/inject: "true"
+    sidecar.speedscale.com/proxy-type: "dual"
+    sidecar.speedscale.com/proxy-protocol: "tcp:http"
+    sidecar.speedscale.com/proxy-port: "8080"
+spec:
+  template:
+    spec:
+      containers:
+        - name: ai-testing-api
+          env:
+            - name: GLOBAL_AGENT_HTTP_PROXY
+              value: http://127.0.0.1:4140
+            - name: GLOBAL_AGENT_HTTPS_PROXY
+              value: http://127.0.0.1:4140
+            - name: GLOBAL_AGENT_NO_PROXY
+              value: "*127.0.0.1:12557"
